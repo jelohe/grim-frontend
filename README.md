@@ -1,9 +1,16 @@
 # Grimorio frontend
 
-Frontend to the Grimorio API to create a note-taking webapp.
-Developed using Clojure's reagent.
+Frontend to create a note-taking website, based on the [Zettlecasten method](https://en.wikipedia.org/wiki/Zettelkasten).
+
+Requires a backend to authenticate and to store, serve and update the notes. **TODO**.
+
+Developed in Clojure using [CLJS](https://clojurescript.org/) with [Reagent](https://github.com/reagent-project/reagent).
 
 
-#### Start a development server
+### Development
 
-`npm start`
+* **Prepare**
+  Ensure you have Node and npm, then do a `npm install`.
+
+* **Run**
+`npm start` to start a server on `localhost:3000`
