@@ -1,5 +1,6 @@
 {:source-paths
- ["src"]
+ ["src/main"
+  "src/test"]
 
  :dependencies
  [[reagent            "1.0.0"]
@@ -14,15 +15,10 @@
    :output-dir "public/js"
    :asset-path "/js"
    :modules    {:main
-                {:init-fn main.grimorio/init!}}}
+                {:init-fn grimorio/init!}}}
 
   :test
   {:target     :node-test
-   :output-to  "out/node/tests.js"
-   :autorun    true}
-
-  :test-browser
-  {:target     :browser-test
-   :test-dir   "out/browser/test"
-   :devtools   {:http-port 3021
-                :http-root "out/browser/test"}}}}
+   :output-to  "out/tests.js"
+   :ns-regexp  "-test$"
+   :autorun    true}}}

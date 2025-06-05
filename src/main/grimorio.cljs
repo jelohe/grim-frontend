@@ -1,8 +1,8 @@
-(ns main.grimorio
-  (:require [main.state :as state]
-            [main.components.header :refer [header]]
-            [main.components.sidebar :refer [sidebar]]
-            [main.components.content :refer [content]]
+(ns grimorio
+  (:require [state]
+            [components.header :refer [header]]
+            [components.sidebar :refer [sidebar]]
+            [components.content :refer [content]]
             [reagent.dom :as rdom]))
 
 (defn grimorio []

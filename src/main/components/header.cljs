@@ -1,4 +1,4 @@
-(ns main.components.header)
+(ns components.header)
 
 (defn header []
   [:header

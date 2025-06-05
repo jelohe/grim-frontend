@@ -1,5 +1,5 @@
-(ns main.components.sidebar
-  (:require [main.state :as state]))
+(ns components.sidebar
+  (:require [state]))
 
 (defn sidebar [notes]
   [:section.sidebar

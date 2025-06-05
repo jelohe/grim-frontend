@@ -1,4 +1,4 @@
-(ns main.state
+(ns state
   (:require [reagent.core :as r]
             [cljs.pprint :as pp]))
 
