@@ -5,13 +5,13 @@
 
 ;; --- STATE ---
 (def opened-notes (r/atom [{:name "a note" 
-                            :value "this is the note body"
+                            :content "this is the note body"
                             :selected true}
                            {:name "another note"
-                            :value "a note body\n\nwith\n\nnewlines"
+                            :content "a note body\n\nwith\n\nnewlines"
                             :selected false}
                            {:name "more notes"
-                            :value "more notes\r\nwith more content"
+                            :content "more notes\r\nwith more content"
                             :selected false}
                            ]))
 
@@ -20,6 +20,16 @@
              (println "---" key "atom changed ---")
              (pp/pprint new-state)))
 
+(defn select-note! [note-name]
+  (swap! opened-notes
+         (fn [notes]
+           (mapv (fn [n]
+                   (assoc n :selected (= (:name n) note-name)))
+                 notes))))
+
+(defn selected-note [notes]
+  (first (filter :selected notes)))
+
 ;; --- VIEWS ---
 (defn header []
   [:header
@@ -27,46 +37,28 @@
    [:div.searchbar-wrapper
     [:input {:class "searchbar" :placeholder "search..."}]]])
 
-(defn sidebar []
+(defn sidebar [notes]
   [:section.sidebar
    [:ul
-    (for [note @opened-notes
+    (for [note notes
           :let [note-name (:name note)]]
       ^{:key note-name}
       [:li
        {:class    (when (:selected note) "selected")
-        :on-click #(swap! opened-notes
-                          (fn [notes]
-                            (mapv (fn [n]
-                                    (assoc n :selected (= (:name n) note-name)))
-                                  notes)))}
+        :on-click #(select-note! note-name)}
        note-name])]])
 
-(defn content []
-  [:section.note-content
-   [:h2 "Docker en linux sin sudo"]
-    [:br]
-    [:p "Por defecto docker en linux necesita ser ejecutado como super usuario."
-      [:br]
-      [:br]
-      "Para evitar este comportamiento, hay que crear un grupo `docker`:"
-      [:br]
-      "`groupadd docker`"
-      [:br]
-      [:br]
-      "Despues hay que añadir nuestro user al nuevo grupo:"
-      [:br]
-      "`usermod -a -G docker my-user`"
-      [:br]
-      [:br]
-      "*Recuerda cerrar y abrir la sesion para que los cambios surjan efecto.*"]])
+(defn content [note]
+  (let [note-content (:content note)]
+    [:section.note-content note-content]))
 
 (defn grimorio-app []
-  [:<> 
-   (header)
-   [:main
-    (sidebar)
-    (content)]])
+  (let [notes @opened-notes]
+    [:<> 
+     (header)
+     [:main
+      (sidebar notes)
+      (content (selected-note notes))]]))
 
 
 ;; --- RENDER ---
