@@ -5,12 +5,12 @@
             [reagent.core :as reagent]
             [reagent.dom :as rdom]
             [reitit.frontend :as rf]
-            [reitit.frontend.easy :as rfe]
-            ))
+            [reitit.frontend.easy :as rfe]))
 
 (defonce current-page (reagent/atom nil))
 
-(defn handle-login []
+(defn handle-login [event]
+  (.preventDefault event)
   (rfe/push-state ::grimorio))
 
 (defn login []
@@ -25,7 +25,7 @@
               :type "password"}]
      [:input {:value "Open"
               :type "submit"
-              :on-click #(handle-login)}]]])
+              :on-click handle-login}]]])
 
 (defn grimorio []
   (let [notes @state/opened-notes]
@@ -44,12 +44,11 @@
 (defn init! []
   (rfe/start!
     (rf/router routes)
-    (fn [match]
-      (reset! current-page match))
+    (fn [match] (reset! current-page match))
     {:use-fragment false}))
 
 (defn app []
   (let [page @current-page]
     (if page
       [(:view (:data page))]
-      [:div "Loading..."])))
+      [:div "..."])))
