@@ -151,3 +151,32 @@ li.selected {
     background-color: #44475A;
     font-weight: bold;
 }
+form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8em 0 0 0;
+    position: relative;
+    width: 100%;
+}
+form > h1 {
+    margin-right: 1em;
+    font-size: 5.3em;
+    padding-bottom: 1em;
+}
+form > input {
+    background-color: #44475A;
+    border: 0;
+    border-radius: 0.2em;
+    color: #F8F8F2;
+    font-size: 1em;
+    margin-bottom: 1em;
+    padding: 0.75em;
+    text-align: center;
+}
+form > input[type="submit"] {
+    color: #F8F8F2;
+    margin-top: 3em;
+    width: 14.5em;
+}
