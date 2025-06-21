@@ -7,6 +7,8 @@
 /.shadow-cljs
 report.html
 
+# clj
+.cpcache/
 # generated js
 /public/js
 /out
