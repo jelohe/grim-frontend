@@ -5,6 +5,7 @@
  :dependencies
  [[reagent            "1.0.0"]
   [metosin/reitit     "0.9.1"]
+  [cljs-ajax          "0.8.4"]
   [binaryage/devtools "1.0.2"]]
 
  :dev-http

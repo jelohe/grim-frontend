@@ -1,12 +1,14 @@
 (ns backend-stub.core
   (:require [ring.adapter.jetty :refer [run-jetty]]
-            [compojure.core :refer [defroutes POST]]
+            [compojure.core :refer [defroutes POST OPTIONS]]
             [compojure.route :as route]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
+            [ring.middleware.cors :refer [wrap-cors]]
             [ring.util.response :refer [response status]]))
 
 (defn mock-login [req]
   (let [{:keys [email password]} (:body req)]
+    (println req)
     (if (= [email password] ["test@example.com" "password123"])
       (-> (response {:token "fake-jwt-token-123"})
           (status 200))
@@ -29,7 +31,12 @@
 (def app
   (-> app-routes
       (wrap-json-body {:keywords? true})
-      wrap-json-response))
+      (wrap-json-response)
+      (wrap-cors :access-control-allow-origin [#"http://localhost:3000"]
+                 :access-control-allow-methods [:get :put :post :delete])
+      ))
 
 (defn -main []
-  (run-jetty app {:port 3001 :join? false}))
+  (run-jetty app {:port 3001 :join? false})
+  (println)
+  (println "Server running on http://localhost:3001 🚀"))
