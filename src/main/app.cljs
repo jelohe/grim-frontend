@@ -1,4 +1,4 @@
-(ns grimorio
+(ns app
   (:require [state]
             [router]
             [reagent.dom :as rdom]

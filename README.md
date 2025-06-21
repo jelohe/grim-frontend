@@ -13,4 +13,4 @@ Developed in Clojure using [CLJS](https://clojurescript.org/) with [Reagent](htt
   Ensure you have Node and npm, then do a `npm install`.
 
 * **Run**
-`npm start` to start a server on `localhost:3000`
+`npm start` to open a dev server on `localhost:3000`

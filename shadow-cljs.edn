@@ -16,7 +16,7 @@
    :output-dir "public/js"
    :asset-path "/js"
    :modules    {:main
-                {:init-fn grimorio/init!}}}
+                {:init-fn app/init!}}}
 
   :test
   {:target     :node-test
