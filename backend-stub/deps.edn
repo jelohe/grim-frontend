@@ -1,5 +1,12 @@
 {:paths ["src"]
 
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps {ring/ring-mock {:mvn/version "0.4.0"}
+                      cheshire/cheshire {:mvn/version "5.11.0"}}
+         :main-opts ["-m" "runtests"]}
+  :up {:main-opts ["-m" "backend-stub.core"]}}
+
  :deps
  {ring/ring-core {:mvn/version "1.11.0"}
   ring/ring-jetty-adapter {:mvn/version "1.11.0"}

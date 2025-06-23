@@ -18,10 +18,14 @@ Ensure you have Node and npm, then do a `npm install`.
 
 ##### Stub backend server
 
-`cd backend-stub`
+Cd into the directory `cd backend-stub`
 
-`clj -M -m backend-stub.core` to open a stub on `localhost:3001`
+`clj -M:up` to open a stub server on `localhost:3001`
+
+`clj -M:test` to run stub tests
 
 ##### Frontend dev server
 
 `npm start` to open a server on `localhost:3000`
+
+`npm run test` frontend unit testing
