@@ -15,7 +15,7 @@
           body (json/parse-string (:body res) true)]
       (is (= 200 (:status res)))
       (is (= fake-token (:token body)))))
-  
+
   (testing "Password is invalid"
     (let [req (-> (mock/request :post "/api/login")
                   (mock/json-body {:email "test@example.com"
@@ -66,6 +66,36 @@
 
   (testing "User is not authorized"
     (let [req (-> (mock/request :get "/api/notes/first-note")
+                  (mock/header "authorization" "Bearer wrong-token"))
+          res (app req)
+          body (json/parse-string (:body res) true)]
+      (is (= 422 (:status res)))
+      (is (= "Unauthorized" (:error body)))))
+  )
+
+(deftest notes-tests
+  (testing "Returns a list of notes"
+    (let [req (-> (mock/request :get "/api/notes")
+                  (mock/header "authorization" (str "Bearer " fake-token)))
+          res (app req)
+          body (json/parse-string (:body res) true)]
+      (is (= 200 (:status res)))
+      (is (= [{:name "first note"
+               :content "first note content"}
+              {:name "second note"
+               :content "second note content"}]
+             (:notes body)))))
+
+  (testing "There are no notes"
+    (let [req (-> (mock/request :get "/api/notes")
+                  (mock/header "authorization" "Bearer i-dont-have-notes"))
+          res (app req)
+          body (json/parse-string (:body res) true)]
+      (is (= 404 (:status res)))
+      (is (= "Not found" (:error body)))))
+
+  (testing "User is not authorized"
+    (let [req (-> (mock/request :get "/api/notes")
                   (mock/header "authorization" "Bearer wrong-token"))
           res (app req)
           body (json/parse-string (:body res) true)]
